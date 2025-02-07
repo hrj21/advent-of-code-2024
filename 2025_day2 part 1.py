@@ -10,21 +10,21 @@ for line in raw:
     values = [int(x) for x in values] # list comprehension
     lines.append(values)
 
-# not functional yet
+# iterate over each line and pair of adjacent values
 results = []
 
 for line in lines:
-    for i, num in enumerate(line):
-        d = []
+    d = []
+    # find differences between adjacent values
+    for i, num in enumerate(line):        
         if(i < len(line)-1):
             d.append(num - line[i+1])
-            if(max(abs(x) for x in d) < 4 and ( all(x > 0 for x in d) or all(x < 0 for x in d) )):
-                results.append("safe")
-            else:
-                results.append("unsafe")
-        else:
-            results.append("unsafe")
+    # mark as safe if abs difference <4, and all values positive or negative
+    if(max(abs(x) for x in d) < 4 and ( all(x > 0 for x in d) or all(x < 0 for x in d) )):
+        results.append("safe")
+    # otherwise mark as unsafe
+    else:
+        results.append("unsafe")
 
-results
-
+# find number of safe results
 len([x for x in results if x == "safe"])
